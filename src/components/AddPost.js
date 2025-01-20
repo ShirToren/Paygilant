@@ -8,16 +8,16 @@ export default function AddPost() {
   const { addPost, error } = useContext(PostsContext);
   const navigate = useNavigate();
 
+  const handleBackToPosts = () => {
+    navigate("/");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postAdded = await addPost(title, body);
     if (postAdded) {
-      navigate("/");
+      handleBackToPosts();
     }
-  };
-
-  const handleBackToPosts = () => {
-    navigate("/");
   };
 
   return (

@@ -19,23 +19,37 @@ export default function PostsPage() {
           path="/"
           element={
             <>
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h1>Posts</h1>
+              <div className="d-flex justify-content-between mb-3 mt-4">
                 <Link to="/add-post" className="btn btn-success">
                   Add New Post
                 </Link>
               </div>
-              <input
-                type="text"
-                placeholder="Search posts..."
-                className="form-control mb-3"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
+
+              <div className="text-center mb-4">
+                <h1 className="display-4 text-primary font-weight-bold">
+                  Posts
+                </h1>
+              </div>
+
+              <div className="d-flex justify-content-end mb-4">
+                <input
+                  type="text"
+                  placeholder="Search posts..."
+                  className="form-control w-100 w-md-25"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+
               <div className="row">
                 {filteredPosts.map((post) => (
                   <div className="col-md-4" key={post.id}>
-                    <Post id={post.id} title={post.title} body={post.body} />
+                    <Post
+                      id={post.id}
+                      title={post.title}
+                      body={post.body}
+                      bodyClass="text-wrap text-break"
+                    />
                   </div>
                 ))}
                 {filteredPosts.length === 0 && (

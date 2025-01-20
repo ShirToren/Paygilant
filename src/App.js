@@ -20,7 +20,7 @@ const AppWrapper = () => {
     <PostsProvider currentLocation={location}>
       <Routes>
         <Route path="/" element={<Navigate to="/posts" />} />
-        <Route path="/posts" element={<PostsPage />} />
+        <Route path="/posts/*" element={<PostsPage />} />
         <Route path="/posts/:id" element={<PostDetailsPage />} />
         <Route path="/add-post" element={<AddPost />} />
       </Routes>

@@ -6,10 +6,8 @@ const CACHE_KEY = "posts_cache";
 const CACHE_TIMESTAMP_KEY = "posts_cache_timestamp";
 const CACHE_EXPIRATION_TIME = 60 * 60 * 1000;
 
-// Create the context
 export const PostsContext = createContext();
 
-// Create the provider component
 export const PostsProvider = ({ children, currentLocation }) => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -17,14 +15,14 @@ export const PostsProvider = ({ children, currentLocation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch posts with caching
+  // fetch posts with caching
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const cachedPosts = JSON.parse(localStorage.getItem(CACHE_KEY));
         const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
 
-        // Check if cached data exists and is not expired
+        // check if cached data exists and is not expired
         if (
           cachedPosts &&
           cachedTimestamp &&
@@ -33,7 +31,7 @@ export const PostsProvider = ({ children, currentLocation }) => {
           setPosts(cachedPosts);
           setFilteredPosts(cachedPosts);
         } else {
-          // Fetch fresh data and update cache
+          // tetch fresh data and update cache
           const response = await axios.get(URL);
           if (response?.data) {
             setPosts(response.data);
@@ -53,7 +51,7 @@ export const PostsProvider = ({ children, currentLocation }) => {
     fetchPosts();
   }, []);
 
-  // Update filtered posts whenever the search input changes
+  // update filtered posts whenever the search input changes
   useEffect(() => {
     const lowerCaseSearch = search.toLowerCase();
     setFilteredPosts(
@@ -61,14 +59,20 @@ export const PostsProvider = ({ children, currentLocation }) => {
     );
   }, [search, posts]);
 
+  // reset error when the location changes
+  useEffect(() => {
+    setError(null);
+  }, [currentLocation]);
+
   const addPost = async (title, body) => {
     if (!title || !body) {
       setError("Both title and body are required.");
       return;
     }
-
+    //send a POST request to the API
     try {
       const response = await axios.post(URL, { title, body });
+      //create an id value for the new post (the API returns always the same id - 101)
       const maxId =
         posts.length > 0 ? Math.max(...posts.map((post) => post.id)) : 0;
       const newPost = { ...response?.data, id: maxId + 1 };
@@ -81,19 +85,12 @@ export const PostsProvider = ({ children, currentLocation }) => {
         const updatedPosts = [newPost, ...posts];
         localStorage.setItem(CACHE_KEY, JSON.stringify(updatedPosts));
       }
-
       return true;
     } catch (err) {
       setError(`Failed to add the post: ${err.message}`);
     }
     return false;
   };
-
-  //   Reset error when navigating
-  // Reset error when the location changes
-  useEffect(() => {
-    setError(null);
-  }, [currentLocation]);
 
   const fetchPostComments = async (id) => {
     try {
@@ -106,7 +103,7 @@ export const PostsProvider = ({ children, currentLocation }) => {
     }
   };
 
-  // Provide the state and methods to children
+  // provide the state and methods to children
   return (
     <PostsContext.Provider
       value={{

@@ -8,6 +8,7 @@ export default function PostDetailsPage() {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
+  const [loadingComments, setLoadingComments] = useState(true);
 
   // Fetch the post
   useEffect(() => {
@@ -24,8 +25,10 @@ export default function PostDetailsPage() {
   // Fetch comments
   useEffect(() => {
     const getComments = async () => {
+      setLoadingComments(true);
       const comments = await fetchPostComments(id);
       setComments(comments);
+      setLoadingComments(false);
     };
 
     if (post) {
@@ -37,8 +40,8 @@ export default function PostDetailsPage() {
 
   return (
     <div className="container my-5">
-      <Link to="/" className="btn btn-primary mb-4">
-        Back to Posts
+      <Link to="/" className="btn btn-outline-primary mb-4">
+        <i className="bi bi-arrow-left"></i> Back to Posts
       </Link>
       {post ? (
         <div className="card mb-4 shadow-sm">
@@ -50,9 +53,12 @@ export default function PostDetailsPage() {
       ) : (
         <div className="text-center my-5">Loading post details...</div>
       )}
+
       <div className="border p-4 rounded shadow-sm bg-light">
         <h4 className="mb-4">Comments</h4>
-        {comments.length > 0 ? (
+        {loadingComments ? (
+          <div className="text-center">Loading comments...</div>
+        ) : comments.length > 0 ? (
           <ul className="list-unstyled">
             {comments.map((comment) => (
               <li key={comment.id} className="mb-3">
@@ -67,7 +73,7 @@ export default function PostDetailsPage() {
           </ul>
         ) : (
           <div className="text-center text-muted">
-            No Comments for this post
+            No Comments for this post.
           </div>
         )}
       </div>
