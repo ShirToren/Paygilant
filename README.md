@@ -21,4 +21,4 @@ In the posts page you can see all the posts in a card format. When clicking on t
 
 With the search bar you can search a post by title, and with the "Add new post" button you can add a new post, while title and content are both mandatory fields.
 
-By click on the "App Post" button, the posts context will send a post request to the API with the new post. JSONPlaceholder accepts POST requests but does not reflect them when fetching posts again (Doesn't really posts the data into the database). So in order to display the new post in the app, I saved it in cache (in the local storage).
+By click on the "App Post" button, the posts context will send a post request to the API with the new post. JSONPlaceholder accepts POST requests but does not reflect them when fetching posts again (Doesn't really posts the data into the database). So in order to display the new post in the app, I saved it in the cache (in the local storage).
