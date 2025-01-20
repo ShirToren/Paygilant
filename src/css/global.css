@@ -1,0 +1,97 @@
+.post-card {
+  height: 280px; /* Ensures all cards have the same height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid #ddd; /* Subtle border for better definition */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+  background-color: #fff; /* Clean white background */
+}
+
+.post-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0;
+}
+
+.card-body {
+  flex-grow: 1; /* Ensures consistent height for the body section */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  min-height: 50px; /* Ensures consistent height for titles */
+  font-weight: bold;
+  font-size: 1.2rem; /* Slightly larger title text */
+  color: #007bff; /* Matches Bootstrap primary color */
+}
+
+.post-body {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5; /* Adjusts spacing between lines */
+  max-height: calc(
+    1.5em * 3
+  ); /* Sync with the line height and number of lines */
+  word-wrap: break-word; /* Prevents breaking in the middle of a word */
+  color: #333; /* Neutral text color for readability */
+}
+
+@media (min-width: 768px) {
+  .post-body {
+    display: -webkit-box;
+    line-clamp: 4; /* Limits to 4 lines */
+    -webkit-line-clamp: 4; /* Limits to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.mt-auto {
+  margin-top: auto; /* Pushes "View Details" button to the bottom */
+}
+
+.text-center {
+  text-align: center; /* Centers the button horizontally */
+}
+
+.btn-primary {
+  font-size: 0.9rem; /* Slightly smaller button text */
+  padding: 0.5rem 1rem; /* Balanced button padding */
+  border-radius: 6px; /* Rounded corners for buttons */
+  background: linear-gradient(
+    135deg,
+    #007bff,
+    #0056b3
+  ); /* Gradient for modern look */
+  border: none; /* Removes border for cleaner design */
+  color: #fff; /* White text for contrast */
+  transition: background 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    #0056b3,
+    #003f7f
+  ); /* Darker gradient on hover */
+  transform: scale(1.05); /* Slightly enlarges button on hover */
+}
+
+@media (max-width: 576px) {
+  .post-card {
+    height: auto; /* Allows cards to adjust for smaller screens */
+  }
+  .post-body {
+    max-height: 60px; /* Adjusts body height for smaller screens */
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+  }
+}
